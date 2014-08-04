@@ -19,19 +19,20 @@ OBJECTS_DIR = tmp
 MOC_DIR     = tmp
 UI_DIR      = tmp
 
-LIBS += -L../$${OPENRPT_BLD}/lib -L../$${XTUPLE_BLD}/lib -lxtuplecommon -L../lib -lupdatercommon -lcommon -lrenderer
+QMAKE_LIBDIR += ../lib ../$${OPENRPT_BLD}/lib ../$${XTUPLE_BLD}/lib
+LIBS += -lxtuplecommon -lupdatercommon -lopenrptcommon -lrenderer
 macx: LIBS += -lz
 
 win32-msvc* {
   PRE_TARGETDEPS += ../lib/updatercommon.lib          \
-                    ../$${XTUPLE_BLD}/lib/xtuplecommon.lib \
-                    ../$${OPENRPT_BLD}/lib/common.lib \
-                    ../$${OPENRPT_BLD}/lib/renderer.lib
+                    ../$${XTUPLE_BLD}/lib/xtuplecommon.$${XTLIBEXT} \
+                    ../$${OPENRPT_BLD}/lib/openrptcommon.$${OPENRPTLIBEXT} \
+                    ../$${OPENRPT_BLD}/lib/renderer.$${OPENRPTLIBEXT}
 } else {
   PRE_TARGETDEPS += ../lib/libupdatercommon.a          \
-                    ../$${XTUPLE_BLD}/lib/libxtuplecommon.a \
-                    ../$${OPENRPT_BLD}/lib/libcommon.a \
-                    ../$${OPENRPT_BLD}/lib/librenderer.a
+                    ../$${XTUPLE_BLD}/lib/libxtuplecommon.$${XTLIBEXT} \
+                    ../$${OPENRPT_BLD}/lib/libopenrptcommon.$${OPENRPTLIBEXT} \
+                    ../$${OPENRPT_BLD}/lib/librenderer.$${OPENRPTLIBEXT}
 }
 
 DESTDIR = ../bin

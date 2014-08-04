@@ -15,15 +15,17 @@ CONFIG += qt warn_on thread
 
 DESTDIR = ../bin
 
-LIBS += -L../lib -lupdatercommon -L../$${OPENRPT_BLD}/lib -lcommon -lrenderer
+#TODO: use OPENRPT_DIR_REL instead of assuming ..
+QMAKE_LIBDIR += ../lib ../$${OPENRPT_BLD}/lib
+LIBS += -lupdatercommon -lopenrptcommon -lrenderer
 win32-msvc* {
   PRE_TARGETDEPS += ../lib/updatercommon.lib          \
-                    ../$${OPENRPT_BLD}/lib/common.lib \
-                    ../$${OPENRPT_BLD}/lib/renderer.lib
+                    ../$${OPENRPT_BLD}/lib/openrptcommon.$${OPENRPTLIBEXT} \
+                    ../$${OPENRPT_BLD}/lib/renderer.$${OPENRPTLIBEXT}
 } else {
   PRE_TARGETDEPS += ../$${UPDATER_BLD}/lib/libupdatercommon.a \
-                    ../$${OPENRPT_BLD}/lib/libcommon.a \
-                    ../$${OPENRPT_BLD}/lib/librenderer.a
+                    ../$${OPENRPT_BLD}/lib/libopenrptcommon.$${OPENRPTLIBEXT} \
+                    ../$${OPENRPT_BLD}/lib/librenderer.$${OPENRPTLIBEXT}
 }
 
 MOC_DIR = tmp

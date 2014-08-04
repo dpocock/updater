@@ -21,9 +21,6 @@ exists($${OPENRPT_DIR}-build-desktop) {
   OPENRPT_BLD=$${OPENRPT_DIR}-build-desktop
 }
 
-exists(../xtuple) {
-  XTUPLE_DIR = ../xtuple
-}
 exists(../qt-client) {
   XTUPLE_DIR = ../qt-client
 }
@@ -50,6 +47,32 @@ DEPENDPATH  += ../$${UPDATER_BLD}/common ../$${OPENRPT_BLD}/common ../$${OPENRPT
 INCLUDEPATH = $$unique(INCLUDEPATH)
 
 CONFIG += release
+
+USE_SHARED_OPENRPT = $$(USE_SHARED_OPENRPT)
+isEmpty( USE_SHARED_OPENRPT ) {
+  DMTXLIB              = -ldmtx
+
+  win32-msvc* {
+    OPENRPTLIBEXT = lib
+  } else {
+    OPENRPTLIBEXT = a
+  }
+} else {
+  CONFIG += openrpt_shared
+  DMTXLIB              = -lDmtx_Library
+  OPENRPTLIBEXT        = $${QMAKE_EXTENSION_SHLIB}
+}
+
+BUILD_XTCOMMON_SHARED = $$(BUILD_XTCOMMON_SHARED)
+isEmpty( BUILD_XTCOMMON_SHARED ) {
+  win32-msvc* {
+    XTLIBEXT = lib
+  } else {
+    XTLIBEXT = a
+  }
+} else {
+  XTLIBEXT = $${QMAKE_EXTENSION_SHLIB}
+}
 
 macx:exists(macx.pri) {
   include(macx.pri)
