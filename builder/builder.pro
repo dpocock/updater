@@ -15,13 +15,15 @@ CONFIG += qt warn_on thread
 
 DESTDIR = ../bin
 
-LIBS += -L../lib -lupdatercommon -L../$${OPENRPT_BLD}/lib -lcommon -lrenderer
+LIBS += -L../lib -lupdatercommon -L../$${OPENRPT_BLD}/lib -lMetaSQL -lcommon -lrenderer
 win32-msvc* {
   PRE_TARGETDEPS += ../lib/updatercommon.lib          \
+                    ../$${OPENRPT_BLD}/lib/MetaSQL.lib \
                     ../$${OPENRPT_BLD}/lib/common.lib \
                     ../$${OPENRPT_BLD}/lib/renderer.lib
 } else {
   PRE_TARGETDEPS += ../$${UPDATER_BLD}/lib/libupdatercommon.a \
+                    ../$${OPENRPT_BLD}/lib/libMetaSQL.a \
                     ../$${OPENRPT_BLD}/lib/libcommon.a \
                     ../$${OPENRPT_BLD}/lib/librenderer.a
 }
