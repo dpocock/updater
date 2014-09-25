@@ -19,18 +19,20 @@ OBJECTS_DIR = tmp
 MOC_DIR     = tmp
 UI_DIR      = tmp
 
-LIBS += -L../$${OPENRPT_BLD}/lib -L../$${XTUPLE_BLD}/lib -lxtuplecommon -L../lib -lupdatercommon -lcommon -lrenderer
+LIBS += -L../$${OPENRPT_BLD}/lib -L../$${XTUPLE_BLD}/lib -lxtuplecommon -L../lib -lupdatercommon -lMetaSQL -lopenrptcommon -lrenderer
 macx: LIBS += -lz
 
 win32-msvc* {
   PRE_TARGETDEPS += ../lib/updatercommon.lib          \
                     ../$${XTUPLE_BLD}/lib/xtuplecommon.lib \
-                    ../$${OPENRPT_BLD}/lib/common.lib \
+                    ../$${OPENRPT_BLD}/lib/MetaSQL.lib \
+                    ../$${OPENRPT_BLD}/lib/openrptcommon.lib \
                     ../$${OPENRPT_BLD}/lib/renderer.lib
 } else {
   PRE_TARGETDEPS += ../lib/libupdatercommon.a          \
                     ../$${XTUPLE_BLD}/lib/libxtuplecommon.a \
-                    ../$${OPENRPT_BLD}/lib/libcommon.a \
+                    ../$${OPENRPT_BLD}/lib/libMetaSQL.a \
+                    ../$${OPENRPT_BLD}/lib/libopenrptcommon.a \
                     ../$${OPENRPT_BLD}/lib/librenderer.a
 }
 
