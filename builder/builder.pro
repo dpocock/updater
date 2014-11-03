@@ -15,17 +15,16 @@ CONFIG += qt warn_on thread
 
 DESTDIR = ../bin
 
-#TODO: use OPENRPT_DIR_REL instead of assuming ..
-QMAKE_LIBDIR += ../lib ../$${OPENRPT_BLD}/lib
-LIBS += -lupdatercommon -lopenrptcommon -lrenderer
+QMAKE_LIBDIR += ../lib $${OPENRPT_LIBDIR}
+LIBS += -lupdatercommon -lopenrptcommon -lrenderer -lMetaSQL
 win32-msvc* {
-  PRE_TARGETDEPS += ../lib/updatercommon.lib          \
-                    ../$${OPENRPT_BLD}/lib/openrptcommon.$${OPENRPTLIBEXT} \
-                    ../$${OPENRPT_BLD}/lib/renderer.$${OPENRPTLIBEXT}
+  PRE_TARGETDEPS += $${UPDATER_LIBDIR}/updatercommon.lib          \
+                    $${OPENRPT_LIBDIR}/openrptcommon.$${OPENRPTLIBEXT} \
+                    $${OPENRPT_LIBDIR}/renderer.$${OPENRPTLIBEXT}
 } else {
-  PRE_TARGETDEPS += ../$${UPDATER_BLD}/lib/libupdatercommon.a \
-                    ../$${OPENRPT_BLD}/lib/libopenrptcommon.$${OPENRPTLIBEXT} \
-                    ../$${OPENRPT_BLD}/lib/librenderer.$${OPENRPTLIBEXT}
+  PRE_TARGETDEPS += $${UPDATER_LIBDIR}/libupdatercommon.a \
+                    $${OPENRPT_LIBDIR}/libopenrptcommon.$${OPENRPTLIBEXT} \
+                    $${OPENRPT_LIBDIR}/librenderer.$${OPENRPTLIBEXT}
 }
 
 MOC_DIR = tmp
