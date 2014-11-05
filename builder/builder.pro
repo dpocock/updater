@@ -19,10 +19,12 @@ QMAKE_LIBDIR += ../lib $${OPENRPT_LIBDIR}
 LIBS += -lupdatercommon -lopenrptcommon -lrenderer -lMetaSQL
 win32-msvc* {
   PRE_TARGETDEPS += $${UPDATER_LIBDIR}/updatercommon.lib          \
+                    $${OPENRPT_LIBDIR}/MetaSQL.$${OPENRPTLIBEXT}       \
                     $${OPENRPT_LIBDIR}/openrptcommon.$${OPENRPTLIBEXT} \
                     $${OPENRPT_LIBDIR}/renderer.$${OPENRPTLIBEXT}
 } else {
   PRE_TARGETDEPS += $${UPDATER_LIBDIR}/libupdatercommon.a \
+                    $${OPENRPT_LIBDIR}/libMetaSQL.$${OPENRPTLIBEXT}       \
                     $${OPENRPT_LIBDIR}/libopenrptcommon.$${OPENRPTLIBEXT} \
                     $${OPENRPT_LIBDIR}/librenderer.$${OPENRPTLIBEXT}
 }
