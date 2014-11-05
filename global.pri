@@ -66,8 +66,8 @@ DEPENDPATH  += $${INCLUDEPATH}
 
 CONFIG += release
 
-win32-mingw*:OPENRPTLIBEXT = a
-win32-mingw*:XTLIBEXT      = a
+win32*:OPENRPTLIBEXT       = a
+win32*:XTLIBEXT            = a
 win32-msvc*:OPENRPTLIBEXT  = lib
 win32-msvc*:XTLIBEXT       = lib
 unix:OPENRPTLIBEXT         = so
