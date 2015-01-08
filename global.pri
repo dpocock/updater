@@ -72,8 +72,8 @@ win32-msvc*:OPENRPTLIBEXT  = lib
 win32-msvc*:XTLIBEXT       = lib
 unix:OPENRPTLIBEXT         = so
 unix:XTLIBEXT              = so
-macx:OPENRPTLIBEXT         = dylib
-macx:XTLIBEXT              = dylib
+macx:OPENRPTLIBEXT         = a
+macx:XTLIBEXT              = a
 
 macx:exists(macx.pri) {
   include(macx.pri)
