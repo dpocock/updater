@@ -46,6 +46,7 @@ runupdater()
 # Set default values for variables 
 VERBOSE=0
 DATABASELIST=
+DATABASEFILE=
 PACKAGELIST=": No packages found"
 ADMINUSER="admin"
 UPDATERLOCATION=/opt/updater-headless
@@ -62,7 +63,7 @@ while getopts l:v o ; do
 done
 
 shift $(($OPTIND-1))
-DATABASELIST=${LOCATION}/$1
+DATABASELIST=$1
 
 # Initialise Log file
 cat > xtuple_update.log << EOF
@@ -99,8 +100,9 @@ echo "Packages Found " ${PACKAGELIST}
 echo ${PACKAGELIST} >> xtuple_update.log
 
 # Start running
+DATABASEFILE=${LOCATION}/$DATABASELIST
 if [ -e $DATABASELIST ]; then # read Database Connections from a file
-   grep -v '^#' < $DATABASELIST | 
+   grep -v '^#' < $DATABASEFILE | 
    { while read line; do
      DATABASE=$line    
      DBURL=PSQL7://${DATABASE}
