@@ -6,8 +6,8 @@ Uploaders: Andrew Shadura <andrewsh@debian.org>, Daniel Pocock <daniel@pocock.pr
 Build-Depends: debhelper (>= 9), dpkg-dev (>= 1.16.1~), libqt4-dev (>= 4.5.0), libdmtx-dev, libopenrpt-dev (>= 3.3.10), libcsvimp-dev (>= 0.5.1), libqtassistantclient-dev, libz-dev, libqtwebkit-dev, libsqlite3-dev, libxtuplecommon-dev (>= 4.9.1)
 Standards-Version: 3.9.6
 Homepage: http://www.xtuple.com/postbooks
-Vcs-Git: git://anonscm.debian.org/collab-maint/postbooks-updater.git
-Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/postbooks-updater.git
+Vcs-Git: https://github.com/xtuple/updater
+Vcs-Browser: https://github.com/xtuple/updater
 
 Package: postbooks-updater
 Architecture: any
