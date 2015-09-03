@@ -1,0 +1,2 @@
+bin/postbooks-updater /usr/bin
+debian/postbooks-updater.desktop /usr/share/applications

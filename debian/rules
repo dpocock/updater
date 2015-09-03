@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+
+#DEB_BUILD_MAINT_OPTIONS = hardening=+all
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+
+%:
+	dh $@ --builddirectory=. --parallel
+
+override_dh_clean:
+	for pro in `find . -name '*.pro'` ; do \
+		rm -f $$(dirname $$pro)/Makefile*; \
+	done
+	rm -rf */tmp
+	dh_clean
+
+override_dh_auto_test:
+
+override_dh_auto_configure:
+	# FIXME: find will not fail on error!
+	find . -name '*.ts' -exec lrelease {} \;
+	# convert to use shared libs
+	find . -name '*.pro' -exec sed -i -e "s/lib\(common\)\.a/lib\1.so/"  {} \;
+	find . -name '*.pro' -exec sed -i -e "s/lib\(MetaSQL\)\.a/lib\1.so/"  {} \;
+	find . -name '*.pro' -exec sed -i -e "s/lib\(wrtembed\)\.a/lib\1.so/"  {} \;
+	find . -name '*.pro' -exec sed -i -e "s/lib\(renderer\)\.a/lib\1.so/"  {} \;
+	dh_auto_configure
+
+override_dh_auto_install:
+	mv bin/builder bin/postbooks-update-builder
+	mv bin/updater bin/postbooks-updater
+	dh_auto_install
+
+.PHONY: override_dh_auto_configure override_dh_clean override_dh_auto_test

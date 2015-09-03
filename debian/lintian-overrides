@@ -1,0 +1,2 @@
+# the menu icon is supplied by a dependency, libxtuplecommon
+postbooks-updater binary: menu-icon-missing

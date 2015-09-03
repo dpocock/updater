@@ -1,0 +1,5 @@
+?package(postbooks-updater):needs="X11" \
+  section="Applications/Office" \
+  title="PostBooks Updater" \
+  command="postbooks-updater" \
+  icon="/usr/share/pixmaps/xTuple.xpm"

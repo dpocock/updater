@@ -1,0 +1,54 @@
+postbooks-updater (2.2.5-9) unstable; urgency=low
+
+  * Remove build dependency on libqt4-webkit. (Closes: #787748)
+
+ -- Daniel Pocock <daniel@pocock.pro>  Thu, 04 Jun 2015 21:07:04 +0200
+
+postbooks-updater (2.2.5-8) unstable; urgency=low
+
+  * Cumulative upload of fixes from experimental branch.
+
+ -- Daniel Pocock <daniel@pocock.pro>  Sat, 18 Oct 2014 17:29:06 +0200
+
+postbooks-updater (2.2.5-7) experimental; urgency=low
+
+  * Update patch to explicitly link libMetaSQL.
+
+ -- Daniel Pocock <daniel@pocock.pro>  Thu, 25 Sep 2014 09:06:24 +0200
+
+postbooks-updater (2.2.5-6) experimental; urgency=low
+
+  * Build against latest qt-client in experimental.
+
+ -- Daniel Pocock <daniel@pocock.pro>  Wed, 24 Sep 2014 10:21:27 +0200
+
+postbooks-updater (2.2.5-5) unstable; urgency=low
+
+  * Set version on libxtuplecommon-dev dependency
+
+ -- Daniel Pocock <daniel@pocock.pro>  Wed, 24 Sep 2014 10:03:33 +0200
+
+postbooks-updater (2.2.5-4) unstable; urgency=low
+
+  * Set version on libxtuplecommon-dev dependency
+
+ -- Daniel Pocock <daniel@pocock.com.au>  Mon, 07 Oct 2013 08:48:35 +0200
+
+postbooks-updater (2.2.5-3) unstable; urgency=low
+
+  * Add README.Debian
+
+ -- Daniel Pocock <daniel@pocock.com.au>  Sat, 05 Oct 2013 11:56:50 +0200
+
+postbooks-updater (2.2.5-2) unstable; urgency=low
+
+  * Add menu entry
+
+ -- Daniel Pocock <daniel@pocock.com.au>  Sun, 29 Sep 2013 18:40:22 +0200
+
+postbooks-updater (2.2.5-1) unstable; urgency=low
+
+  * Initial release. (Closes: #724589)
+
+ -- Daniel Pocock <daniel@pocock.com.au>  Wed, 25 Sep 2013 16:31:42 +0200
+

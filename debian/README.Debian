@@ -1,0 +1,54 @@
+
+
+This is a GUI utility for managing updates to the PostBooks database.
+
+Updates are not automatically applied by any postinst script when
+installing or updating any of the PostBooks packages.  It is necessary
+to run the postbooks-updater utility to apply the updates.
+
+There are two reasons for this strategy:
+
+- You may have more than one database instance, and they may not
+  even be on the same server, so the package maintainers can not
+  easily automate the process of locating and updating them
+
+- It is recommended that you do a trial run of the upgrade on a
+  test instance of the database before running the upgrade on the
+  real instance.
+
+You should be making regular backups of your database and it is
+not a good idea to run this update utility without having taken
+a backup immediately before upgrade.
+
+=== UPDATE FILES ===
+
+The utility applies updates to the database.  The updates are distributed
+by xTuple on Sourceforge.  Each update is .gz file with a naming convention
+reflecting the versions it upgrades from and to.  For example,
+pb40xto410.gz updates from 4.0.x to 4.1.0.  If you are skipping a
+version, you have to obtain and run all the intermediate update
+files in sequence.
+
+=== PROCEDURE ===
+
+a) log in to postbooks as an administrator, go the the maintenance
+   area of the GUI and put the system in maintenance mode so
+   no other user can connect
+
+b) connect to PostgreSQL and make sure no user is connected
+
+c) take a backup of the database with pg_dump
+
+d) load the backup into a test database with pg_restore
+
+e) use postbooks-updater to update the copy you made in step (d)
+
+f) make a dump of the upgraded copy using pg_dump, do this before
+   any user connects to test it
+
+g) connect to the copy and verify it works, check your invoices
+   and financial reports and other functional checks
+
+h) if it is good, load the copy (from step (f)) into the real database
+
+

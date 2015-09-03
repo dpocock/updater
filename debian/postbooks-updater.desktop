@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=PostBooks Updater
+Icon=/usr/share/pixmaps/xTuple.xpm
+Exec=postbooks-updater
+Terminal=false
+Categories=Office;
