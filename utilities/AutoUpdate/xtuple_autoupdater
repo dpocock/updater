@@ -1,0 +1,135 @@
+#!/bin/bash 
+#
+# xtuple_autoupdater: 1.1
+# Author: danderson@xtuple.com
+#
+# The script initiates installation of xTuple installer packages (.gz) across multiple systems.
+# The list of systems is held in a text file with the format  hostname:port/database  
+# This script requires xTuple Updater of at least 2.2.5 with the headless update built in
+# and the xTuple systems must have the metric headlessUpdate set to true (t)
+
+# Example:xtuple_autoupdater l directorylocation database_file 
+#         
+
+ 
+usage()
+{
+    local ProgName=$1;
+    echo "Usage: $ProgName -l Location_of_Files -v  DatabaseList"
+    echo "       -l Define the directory location of the updater packages if not the current directory"
+    echo "       -v Verbose output (not implemented as yet)"
+    echo "       DatabaseList: hostname1:port/database1,hostname2:port/database2..." 
+    echo "                    or the name of the file which contains hostname and database in separate lines (in the same location as the package files)"
+    echo
+    echo "       PLEASE NOTE: The target xTuple systems must have the headlessUpdate metric installed and set to TRUE"
+    echo "       	      This script also assumes the admin user has the same password in all target databases"
+    echo
+    echo "       The script assumes the packages will run in alphabetical order based on a directory listing. " 
+    echo "       If dependencies are required in the order packages must be loaded the list the package names in a "
+    echo "       file called packagelist.txt  "
+}
+
+runupdater()
+{
+    local DBURL=$1;
+    local USERNAME=$2;
+    local PASSWORD=$3;
+    local PACKAGEFILE=$4;
+    echo -e "Updating System: ${DBURL} with package ${PACKAGEFILE}
+==================================================================" >> xtuple_update.log
+ 
+    ${UPDATERLOCATION}/updater -databaseURL=${DBURL} -username=${USERNAME} -passwd=${PASSWORD} -autorun -file=${PACKAGEFILE} >> xtuple_update.log ;
+}
+
+#=====================================Main Script========================================
+#
+# Set default values for variables 
+VERBOSE=0
+DATABASELIST=
+DATABASEFILE=
+PACKAGELIST=": No packages found"
+ADMINUSER="admin"
+UPDATERLOCATION=/opt/updater-headless
+LOCATION=`pwd`
+
+# Parse the command line arguments with '-'
+while getopts l:v o ; do
+    case "$o" in
+        [?])  usage $0 
+              exit 1;;
+        v)  VERBOSE=1;;
+        l)  LOCATION=$OPTARG;;
+    esac
+done
+
+shift $(($OPTIND-1))
+DATABASELIST=$1
+
+# Initialise Log file
+cat > xtuple_update.log << EOF
+xTuple Multi-System Updater Script
+===========================================
+Applying xTuple Packages:
+
+EOF
+
+   
+# Read in the password from the STDIN
+read -s -p "Please enter the Admin database password:" PASSWORD
+echo 
+echo "Loading xTuple packages from ${LOCATION}"
+
+# Read list of packages to load either from packagelist.txt or directly
+# from the LOCATION directory
+if [ ${LOCATION: -1} == "/" ]; then 
+  LOCATION=`expr "$LOCATION" : "\\(.*\\)/"`
+fi
+
+LOCFILE="${LOCATION}/packagelist.txt"
+
+if [ -f ${LOCFILE} ]; then
+  echo "Reading packagelist file"
+  PACKAGELIST=`sed -e "s/#.*//" "$LOCATION"/packagelist.txt`
+else
+  echo "No packagelist file found.  Reading packages directly from ${LOCATION}"
+  PACKAGELIST=`ls -L "$LOCATION"/*.gz`
+fi
+
+echo "Packages Found " ${PACKAGELIST}
+
+echo ${PACKAGELIST} >> xtuple_update.log
+
+# Start running
+DATABASEFILE=${LOCATION}/$DATABASELIST
+if [ -e $DATABASELIST ]; then # read Database Connections from a file
+   grep -v '^#' < $DATABASEFILE | 
+   { while read line; do
+     DATABASE=$line    
+     DBURL=PSQL7://${DATABASE}
+     for PACKAGE in $PACKAGELIST; do
+       runupdater "$DBURL" "$ADMINUSER" "$PASSWORD" "${PACKAGE}" ;
+     done    
+   done; }  
+
+else # DATABASELIST is a comma separated list of hostname:port/database strings.
+    # Change the internal separation field. 
+    IFS=,
+    for DATABASE in $DATABASELIST; do
+	    DBURL=PSQL7://${DATABASE}
+	    for PACKAGE in $PACKAGELIST; do
+          runupdater "$DBURL" "$ADMINUSER" "$PASSWORD" "${PACKAGE}" ;
+      done
+    done
+fi
+
+# Finally move uploaded packages into DONE folder so they cannot be re-uploaded
+if [ ! -d "${LOCATION}/done" ]; then
+   mkdir ${LOCATION}/done
+fi
+
+mv ${LOCATION}/*.gz ${LOCATION}/done
+
+echo -e "==================================================================
+Update Completed.  Please check the log for errors" >> xtuple_update.log
+
+#EOF
