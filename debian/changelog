@@ -1,4 +1,4 @@
-postbooks-updater (2.3.0-1) unstable; urgency=medium
+postbooks-updater (2.3.0-1~bpo8+1) jessie-backports; urgency=medium
 
   * New upstream release.
 
