@@ -1,3 +1,9 @@
+postbooks-updater (2.3.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Daniel Pocock <daniel@pocock.pro>  Thu, 03 Sep 2015 18:26:21 +0200
+
 postbooks-updater (2.2.5-9) unstable; urgency=low
 
   * Remove build dependency on libqt4-webkit. (Closes: #787748)
