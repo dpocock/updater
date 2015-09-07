@@ -1,5 +1,32 @@
 
+-- NMUs are welcome, but... --
 
-If making an NMU, please also commit and tag in git on alioth
+NMUs are welcome.  If you contribute to this package, either by
+making an NMU or as a participant in the pkg-xtuple packaging team,
+please:
 
+a) commit your work to Git, don't leave it for somebody else to do
+b) when your package upload is accepted, tag the commit that you used
+   to build the package
+c) don't forget to push your commits and tags to alioth
+d) if you patched upstream code, send the patch to upstream using a
+   Github pull request or email
+
+For more details about the team, please see:
+
+    https://alioth.debian.org/projects/pkg-xtuple/
+
+Our repositories are in collab-maint so you don't need to be a member
+of the pkg-xtuple team on alioth before committing to the repositories.
+
+-- Following upstream repositories --
+
+Due to the nature of Git, we have cloned the upstream repositories,
+we do the Debian work in branches and we push our branches to alioth.
+
+The upstream developers are active on Github, they use Ubuntu
+themselves and they welcome collaboration with the Debian and Ubuntu
+communities.  Therefore, anybody making patches against this package
+should submit their patch to upstream using a Github pull request or an
+email so that we won't have to maintain them under debian/patches
 
